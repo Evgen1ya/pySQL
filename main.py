@@ -20,16 +20,16 @@ class Clients:
         self.table_name, self.clients_firstname, self.clients_surname, self.clients_email))
         print(cur.fetchall())
 
-    # def create_table_clients_phone(self, clients_number):
-    #     self.clients_number = clients_number
-    #     cur.execute("""
-    #             CREATE TABLE IF NOT EXISTS Clients_phone (
-    #                     id SERIAL PRIMARY KEY,
-    #                     clients_id=%s INTEGER REFERENCES Clients_db(id),
-    #                     clients_number=%s INTEGER
-    #             """, (
-    #         self.clients_number))
-    #     print(cur.fetchall())
+    def create_table_clients_phone(self, clients_number):
+        self.clients_number = clients_number
+        cur.execute("""
+                CREATE TABLE IF NOT EXISTS Clients_phone (
+                        id SERIAL PRIMARY KEY,
+                        clients_id=%s INTEGER REFERENCES Clients_db(id),
+                        clients_number=%s INTEGER
+                """, (
+            self.clients_number))
+        print(cur.fetchall())
 
 
     def add_client(self, surname, firstname, email):
