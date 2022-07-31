@@ -18,7 +18,7 @@ class Clients:
                 clients_email=%s text;  
         """, (
         self.table_name, self.clients_firstname, self.clients_surname, self.clients_email))
-        print(cur.fetchall())
+        # print(cur.fetchall())
 
     def create_table_clients_phone(self, clients_number):
         self.clients_number = clients_number
@@ -29,7 +29,7 @@ class Clients:
                         clients_number=%s INTEGER
                 """, (
             self.clients_number))
-        print(cur.fetchall())
+        # print(cur.fetchall())
 
 
     def add_client(self, surname, firstname, email):
@@ -42,7 +42,7 @@ class Clients:
             """, (
         self.table_name, self.clients_firstname, self.clients_surname, self.clients_email,
         firstname, surname, email))
-        print(cur.fetchall())
+        # print(cur.fetchall())
 
     def update_number(self, number, clients_id, id: str):
         self.clients_id = clients_id
@@ -53,7 +53,7 @@ class Clients:
                 SET clients_number=%s = number=%
                 WHERE id=%s = clients_id=%s;
             """, (self.clients_number, self.id, number, clients_id))
-        print(cur.fetchall())
+        # print(cur.fetchall())
 
     def update_info(self, firstname, surname, email, clients_id: str):
         self.firstname = firstname
@@ -68,7 +68,7 @@ class Clients:
             """, (
         self.table_name, self.clients_firstname, self.clients_surname,  self.clients_email,
         self.id, firstname, surname, email, clients_id))
-        print(cur.fetchall())
+        # print(cur.fetchall())
 
     def delete_number(self, number, clients_id: str):
         self.clients_id = clients_id
@@ -78,7 +78,7 @@ class Clients:
                 SET clients_number=%s = NULL
                 WHERE id=%s = clients_id=%s;
             """, (self.table_name, self.clients_number, self.id, number, clients_id))
-        print(cur.fetchall())
+        # print(cur.fetchall())
 
     def delete_client(self, clients_id: str):
         self.clients_id = clients_id
@@ -86,7 +86,7 @@ class Clients:
             DELETE FROM table_name=%s
                 WHERE id=%s = clients_id=%s;
             """, (self.table_name, self.id, clients_id))
-        print(cur.fetchall())
+        # print(cur.fetchall())
 
     def find_client(self, firstname, surname, email, number: str):
         self.firstname = firstname
@@ -97,15 +97,20 @@ class Clients:
                     SELECT id FROM table_name=%s
                     WHERE firstname=%s OR surname=%s OR email=%s OR number=%s;
                     """, (self.table_name, firstname, surname, email, number))
-        print(cur.fetchall())
+        # print(cur.fetchall())
 
-    conn.close()
+        conn.close()
+
+
 
 
 with psycopg2.connect(database="netology_db", user="postgres", password="491850") as conn:
+    cur = conn.cursor()
     table_1 = Clients('Clients_db', 'first_name', 'last_name', 'email')
     table_1.create_table()
     client_1 = Clients()
     client_1.add_client('Kim', 'Kate', 'None', 'None')
     client_1.update_number('789283', '1')
     client_1.update_info('Kim', 'Kate', '334232', 'fwefw', '1')
+
+    conn.close()
